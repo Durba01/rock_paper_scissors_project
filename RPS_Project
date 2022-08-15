@@ -1,0 +1,49 @@
+import random
+from enum import IntEnum
+
+class Options(IntEnum):
+    Rock = 0
+    Paper = 1
+    Scissors = 2
+
+    def get_user_choice():
+        user_input = input("Enter a choice (rock[0], paper[1], scissors[2]):")
+        selection = int(user_input)
+        choice = Options(selection)
+        return choice
+
+    get_user_choice()
+
+    def get_computer_choice():
+        selection = random.randint(0, len(Options) - 1)
+        choice = Options(selection)
+        return choice
+
+    get_computer_choice()
+
+    def get_winner(user_choice, computer_choice):
+        if user_choice == computer_choice:
+            print(f"Both players selected {user_choice.name}. It's a tie!")
+        elif user_choice == Options.Rock:
+            if computer_choice == Options.Scissors:
+                print("Rock crushes scissors! You win!")
+            else:
+                print("Paper covers rock! You lose.")
+        elif user_choice == Options.Paper:
+            if computer_choice == Options.Rock:
+                print("Paper covers rock! You win!")
+            else:
+                print("Scissors cuts paper! You lose.")
+        elif user_choice == Options.Scissors:
+            if computer_choice == Options.Paper:
+                print("Scissors cuts paper! You win!")
+            else:
+                print("Rock crushes scissors! You lose.")
+
+def play(get_computer_choice, get_user_choice, get_winner):
+    computer_choice = get_computer_choice()
+    user_choice = get_user_choice()
+    get_winner(user_choice, computer_choice)
+
+    play(get_computer_choice, get_user_choice, get_winner)
+    
